@@ -1,40 +1,35 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import {StyleSheet, View, Text, StatusBar} from 'react-native';
+import {enableScreens} from 'react-native-screens';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {NavigationContainer} from '@react-navigation/native';
+import {
+  MainHomeStackNavi,
+  HomeTopNavi,
+  MainBottomTabNavi,
+} from './src/navigation/navigation';
 
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+// enableScreens();
 
-const App: () => React$Node = () => {
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+
+// const rootReducer = combineReducers({
+//   auth:authReducer,
+//   memberData:memberDataReducer
+// });
+
+// const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{flex: 1, backgroundColor: 'blue'}}>
-        <Text style={styles.fontsize}>Engine: Hermes</Text>
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={{backgroundColor: 'orange', flex: 1}}>
+      <NavigationContainer>
+        <HomeTopNavi />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  contanier: {
-    backgroundColor: 'orange',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  fontsize: {
-    backgroundColor: 'orange',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 30,
-    color: 'deeppink',
-  },
-});
 
 export default App;

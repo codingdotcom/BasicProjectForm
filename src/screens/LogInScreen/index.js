@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-class HomeScreen extends Component {
+class LogInScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> HomeScreen </Text>
+        <Text> LogInScreen </Text>
       </View>
     );
   }
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default LogInScreen;
