@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
 class SavedScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -19,5 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export const screenOptions = ({navigation, route}) => {
+  return {
+    title: 'Saved',
+  };
+};
 
 export default SavedScreen;

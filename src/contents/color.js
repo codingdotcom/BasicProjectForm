@@ -1,0 +1,18 @@
+export default {
+  main: '#ffffff',
+  kakao: '#feed49',
+  background: '#e5e5e5',
+  signup: '#c9b951',
+  basicText: '#444',
+  black: 'black',
+  blue: 'blue',
+  red: 'red',
+  yellow: 'yellow',
+  lightgrey: 'lightgrey',
+  tomato: 'tomato',
+  white: 'white',
+  grey: 'grey',
+  bottomlinecolor: '#D4D4D4',
+  activityiconcolor: '#3b5998',
+  inactivityiconcolor: '#A0A0A0',
+};
