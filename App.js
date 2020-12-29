@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import {enableScreens} from 'react-native-screens';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
-import {MainTobHomeStackNavi, MainBottomHomeStackNavi} from './src/navigation/navigation';
 
-// enableScreens();
+import {LogInStackNavigation} from './src/navigation/AuthStackNavigation';
+import {MainHomeStackNavigation} from './src/navigation/MainHomeNavigation';
+import Colors from './src/contents/color';
+import SafeAreaPadding from './src/styles/SafeAreaPadding';
+import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
+
+enableScreens();
 
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
@@ -20,13 +25,9 @@ import ReduxThunk from 'redux-thunk';
 
 const App = () => {
   return (
-    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <MainTobHomeStackNavi />
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </SafeAreaView>
+    <>
+      <LogInStackNavigation />
+    </>
   );
 };
 

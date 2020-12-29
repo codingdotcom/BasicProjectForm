@@ -1,6 +1,8 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
+import Colors from '../contents/color';
+
 export const CustomButton = (props) => {
   const {title = 'Enter', style = {}, textStyle = {}, onPress} = props;
 
@@ -13,31 +15,31 @@ export const CustomButton = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'green',
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 100,
-    height: 100,
-    borderRadius: 100,
+    width: '100%',
+    height: 50,
+    borderRadius: 7,
 
     ...Platform.select({
       ios: {
         shadowColor: 'rgba(0,0,0,1)',
-        shadowOpacity: 0.5,
-        shadowOffset: {height: 2, width: 0},
-        shadowRadius: 3,
+        shadowOpacity: 0,
+        shadowOffset: {height: 0, width: 0},
+        shadowRadius: 0,
       },
 
       android: {
-        elevation: 4,
+        elevation: 0,
       },
     }),
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
-    textTransform: 'uppercase',
+    textTransform: 'none',
     color: '#FFFFFF',
   },
 });

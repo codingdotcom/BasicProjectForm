@@ -15,4 +15,13 @@ export default {
   bottomlinecolor: '#D4D4D4',
   activityiconcolor: '#3b5998',
   inactivityiconcolor: '#A0A0A0',
+
+  /** 쉼표 컬러  가이드 */
+  primary: '#df7861',
+  secondary: '#ecb390',
+  secondary_1: '#d4e2d4',
+  secondary_2: '#fcf8e8',
+  maintext: '#283c63',
+  bigtext: '#00303f',
+  subtext: '#495464',
 };
