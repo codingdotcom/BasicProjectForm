@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {LogInStackNavigation} from './src/navigation/AuthStackNavigation';
 import {MainHomeStackNavigation} from './src/navigation/MainHomeNavigation';
-import Colors from './src/contents/color';
+import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 

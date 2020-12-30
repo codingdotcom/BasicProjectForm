@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, Dimensions, Platform, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import colors from '../contents/color';
+import colors from '../contants/color';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';

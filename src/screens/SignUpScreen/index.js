@@ -4,7 +4,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
-import Colors from '../../contents/color';
+import GlobalStyle from '../../styles/stylesGlobal';
+import Colors from '../../contants/color';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class SignUpScreen extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1, marginBottom: getBottomSpace(), backgroundColor: 'red'}}>
+      <View style={[GlobalStyle.bottomSafeArea]}>
         <View style={styles.container}>
           <Text> SignUpScreen </Text>
         </View>

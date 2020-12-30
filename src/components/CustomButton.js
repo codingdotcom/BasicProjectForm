@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
-import Colors from '../contents/color';
+import Colors from '../contants/color';
 
 export const CustomButton = (props) => {
   const {title = 'Enter', style = {}, textStyle = {}, onPress} = props;

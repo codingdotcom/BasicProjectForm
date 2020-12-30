@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Image} from 'react-native';
-import color from '../../contents/color';
+import color from '../../contants/color';
 
 class SplashScreen extends Component {
   constructor(props) {

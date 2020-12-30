@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar} from 'react-native';
 
-import {getBottomSpace} from 'react-native-iphone-x-helper';
+import GlobalStyle from '../../styles/stylesGlobal';
+import Colors from '../../contants/color';
 
 class FindPwdScreen extends Component {
   render() {
     return (
-      <View style={{flex: 1, marginBottom: getBottomSpace(), backgroundColor: 'red'}}>
+      <View style={GlobalStyle.bottomSafeArea}>
         <View style={styles.container}>
           <Text> findpwd screen </Text>
         </View>

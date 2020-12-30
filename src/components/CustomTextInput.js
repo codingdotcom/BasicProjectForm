@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {TextInput, Text, View, StyleSheet} from 'react-native';
-import values from '../contents/size';
+import values from '../contants/size';
 import PropTypes from 'prop-types';
 import {number} from 'prop-types';
 

@@ -1,5 +1,5 @@
 import {StyleSheet, Platform} from 'react-native';
-import Colors from '../contents/color';
+import Colors from '../contants/color';
 export default StyleSheet.create({
   androidTopSafeArea: {
     flex: 1,

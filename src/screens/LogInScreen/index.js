@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Dimensions, TouchableOpacity, TextInput, Platfor
 import {CheckBox} from 'react-native-elements';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import Colors from '../../contents/color';
+import Colors from '../../contants/color';
 import SafeAreaPadding from '../../styles/SafeAreaPadding';
 import {CustomButton} from '../../components/CustomButton';
 import SeparatorView from '../../components/SeparatorView';

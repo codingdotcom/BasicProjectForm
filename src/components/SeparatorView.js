@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
-import colors from '../contents/color';
-import values from '../contents/size';
+import colors from '../contants/color';
+import values from '../contants/size';
 
 class SeparatorView extends Component {
   constructor(props) {

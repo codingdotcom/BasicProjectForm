@@ -2,16 +2,11 @@ import React from 'react';
 import {View, Image, Dimensions, Platform, Text} from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import Colors from '../contents/color';
+import Colors from '../contants/color';
 
 import {getFocusedRouteNameFromRoute, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
 
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {Provider} from 'react-redux';
-import ReduxThunk from 'redux-thunk';
-
-import SafeAreaPadding from '../styles/SafeAreaPadding';
 import {MainHomeStackNavigation} from './MainHomeNavigation';
 
 import LoadingScreen from '../screens/LoadingScreen';
