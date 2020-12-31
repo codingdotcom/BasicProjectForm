@@ -7,7 +7,7 @@ import Colors from '../contants/color';
 import {getFocusedRouteNameFromRoute, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
 
-import {MainHomeStackNavigation} from './MainHomeNavigation';
+import {MainHomeNavigation} from './MainHomeNavigation';
 
 import LoadingScreen from '../screens/LoadingScreen';
 import SplashScreen from '../screens/SplashScreen';
@@ -32,6 +32,19 @@ export const LogInStackNavigation = () => {
       </NavigationContainer>
       {/* </SafeAreaView> */}
     </>
+  );
+};
+
+const MainHomeStack = createStackNavigator();
+export const MainHomeStackNavigation = () => {
+  return (
+    <NavigationContainer>
+      <SafeAreaView style={{flex: 1}}>
+        <MainHomeStack.Navigator screenOptions={LineScreenOptions}>
+          <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
+        </MainHomeStack.Navigator>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 

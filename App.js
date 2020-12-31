@@ -1,32 +1,34 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import {enableScreens} from 'react-native-screens';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import SafeAreaView from 'react-native-safe-area-view';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {LogInStackNavigation} from './src/navigation/AuthStackNavigation';
-import {MainHomeStackNavigation} from './src/navigation/MainHomeNavigation';
+import {AllStackNavigation} from './src/navigation/Navigation';
 import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 
-enableScreens();
-
-import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import ReduxThunk from 'redux-thunk';
+import {store} from './src/redux';
 
-// const rootReducer = combineReducers({
-//   auth:authReducer,
-//   memberData:memberDataReducer
-// });
-
-// const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+enableScreens();
 
 const App = () => {
   return (
     <>
-      <LogInStackNavigation />
+      {/* <Provider store={store}> */}
+
+      <SafeAreaProvider>
+        {/* <SafeAreaView style={{flex: 1, backgroundColor: Colors.primary}}> */}
+        <NavigationContainer>
+          <AllStackNavigation />
+        </NavigationContainer>
+        {/* </SafeAreaView> */}
+      </SafeAreaProvider>
+
+      {/* </Provider> */}
     </>
   );
 };

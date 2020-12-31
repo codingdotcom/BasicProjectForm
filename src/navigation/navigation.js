@@ -1,12 +1,13 @@
-import React, {useContext, useEffect, useMemo, useReducer, useState} from 'react';
+import React from 'react';
 import {View, Image, Dimensions, Platform, Text} from 'react-native';
-import colors from '../contents/color';
+import SafeAreaView from 'react-native-safe-area-view';
+
+import Colors from '../contants/color';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {AuthContext} from '../components/Context';
-
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -14,79 +15,112 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import LoadingScreen from '../screens/LoadingScreen';
 import SplashScreen from '../screens/SplashScreen';
 
-import LogInScreen, {screenOptions as loginOptions} from '../screens/LogInScreen';
-import SignUpScreen, {screenOptions as signupOptions} from '../screens/SignUpScreen';
-import FindIdScreen, {screenOptions as findidOptions} from '../screens/FindIdScreen';
-import FindPwdScreen, {screenOptions as findpwdOptions} from '../screens/FindPwdScreen';
 import HomeScreen, {screenOptions as homeOptions} from '../screens/HomeScreen';
 import SavedScreen, {screenOptions as savedOptions} from '../screens/SavedScreen';
 import AlarmScreen, {screenOptions as alarmOptions} from '../screens/AlarmScreen';
 import SearchScreen, {screenOptions as searchOptions} from '../screens/SearchScreen';
 import ProfileScreen, {screenOptions as profileOptions} from '../screens/ProfileScreen';
 
-const widthWindow = Dimensions.get('window').width;
+import LogInScreen, {screenOptions as loginOptions} from '../screens/LogInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import FindIdScreen from '../screens/FindIdScreen';
+import FindPwdScreen from '../screens/FindPwdScreen';
+
+const widthWindow = Dimensions.get('screen').width;
 const iconSize = 24;
 
-const screenContainer = ({children}) => <View style={{flex: 1}}>{children}</View>;
-
-/* 유저 인증 후 진입 */
-export const Auth = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState(null);
-
-  const authContext = useMemo(() => ({
-    logIn: () => {
-      setUserToken('asdf');
-      setIsLoading(false);
-    },
-    signUp: () => {
-      setUserToken('asdf');
-      setIsLoading(false);
-    },
-    signOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
-    },
-  }));
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
+/************************************************************************/
+//
+// 전체 네비게이션
+//
+/************************************************************************/
+const allStack = createStackNavigator();
+export const AllStackNavigation = () => {
   return (
-    <AuthContext.Provider value={authContext}>
-      {userToken !== null ? (
-        <MainTopHomeStac.Navigator screenOptions={LineScreenOptions}>
-          <MainTopHomeStac.Screen name="Home" component={MainTopNavi} options={homeOptions} />
-        </MainTopHomeStac.Navigator>
-      ) : (
-        <LogInScreen />
-      )}
-    </AuthContext.Provider>
+    <allStack.Navigator>
+      <allStack.Screen name="Login" component={LogInScreen} options={{title: '로그인', headerShown: false}} />
+      <allStack.Screen name="SignUp" component={SignUpScreen} options={{title: '회원가입', headerShown: true}} />
+      <allStack.Screen name="FindId" component={FindIdScreen} options={{title: '아이디 찾기', headerShown: true}} />
+      <allStack.Screen name="FindPwd" component={FindPwdScreen} options={{title: '비밀번호 찾기', headerShown: true}} />
+      <allStack.Screen name="Home" component={MainHomeStackNavigation} options={{headerShown: false}} />
+    </allStack.Navigator>
   );
 };
 
-/* 로그인 화면 */
-const LoginStack = createStackNavigator();
-export const Login = () => {};
-
-/* 메인 홈 (top tab tab) 스택 */
-const MainTopHomeStac = createStackNavigator();
-export const MainTobHomeStackNavi = () => {
+/************************************************************************/
+//
+// 메인 탭 메뉴 (메테리얼 Top Tab 활용)
+//
+/************************************************************************/
+const MainHomeStack = createStackNavigator();
+export const MainHomeStackNavigation = () => {
   return (
-    <MainTopHomeStac.Navigator screenOptions={LineScreenOptions}>
-      <MainTopHomeStac.Screen name="Home" component={MainTopNavi} options={homeOptions} />
-    </MainTopHomeStac.Navigator>
+    <SafeAreaView forceInset={{top: 'never'}} style={{flex: 1, backgroundColor: Colors.red}}>
+      <MainHomeStack.Navigator screenOptions={LineScreenOptions}>
+        <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
+      </MainHomeStack.Navigator>
+    </SafeAreaView>
   );
 };
 
-/* 메인 홈 (bottom tab) 스택 */
+const MainHomeTopNavigator = createMaterialTopTabNavigator();
+export const MainHomeNavigation = () => {
+  return (
+    <MainHomeTopNavigator.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
+      <MainHomeTopNavigator.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: 'Home',
+          tabBarLabel: 'Home',
+          tabBarIcon: ({focused, color, size}) => <AntDesign name="home" color={color} size={iconSize} />,
+        }}
+      />
+      <MainHomeTopNavigator.Screen
+        name="Saved"
+        component={SavedScreen}
+        options={{
+          title: 'Saved',
+          tabBarLabel: 'Saved',
+          tabBarIcon: ({focused, color, size}) => <AntDesign name="save" color={color} size={iconSize} />,
+        }}
+      />
+      <MainHomeTopNavigator.Screen
+        name="Search"
+        component={AlarmScreen}
+        options={{
+          title: 'Search',
+          tabBarLabel: 'Search',
+          tabBarIcon: ({focused, color, size}) => <AntDesign name="search1" color={color} size={iconSize} />,
+        }}
+      />
+      <MainHomeTopNavigator.Screen
+        name="Alarm"
+        component={SearchScreen}
+        options={{
+          title: 'Alarm',
+          tabBarLabel: 'Alarm',
+          tabBarIcon: ({focused, color, size}) => <Ionicons name="alarm-outline" color={color} size={iconSize} />,
+        }}
+      />
+      <MainHomeTopNavigator.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({focused, color, size}) => <AntDesign name="profile" color={color} size={iconSize} />,
+        }}
+      />
+    </MainHomeTopNavigator.Navigator>
+  );
+};
+
+/************************************************************************/
+//
+// 메인 탭 메뉴 (기본 bottomTab)
+//
+/************************************************************************/
 const MainBottomHomeStack = createStackNavigator();
 export const MainBottomHomeStackNavi = () => {
   return (
@@ -146,78 +180,25 @@ export const MainBottomTabNavi = () => {
   );
 };
 
-/* 메인 홈 top tab 네비 */
-const HomeTopNavigator = createMaterialTopTabNavigator();
-export const MainTopNavi = () => {
-  return (
-    <HomeTopNavigator.Navigator initialRouteName="Home" tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
-      <HomeTopNavigator.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="home" color={color} size={iconSize} />,
-        }}
-      />
-      <HomeTopNavigator.Screen
-        name="Saved"
-        component={SavedScreen}
-        options={{
-          tabBarLabel: 'Saved',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="save" color={color} size={iconSize} />,
-        }}
-      />
-      <HomeTopNavigator.Screen
-        name="Search"
-        component={AlarmScreen}
-        options={{
-          tabBarLabel: 'Search',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="search1" color={color} size={iconSize} />,
-        }}
-      />
-      <HomeTopNavigator.Screen
-        name="Alarm"
-        component={SearchScreen}
-        options={{
-          tabBarLabel: 'Alarm',
-          tabBarIcon: ({focused, color, size}) => <Ionicons name="alarm-outline" color={color} size={iconSize} />,
-        }}
-      />
-      <HomeTopNavigator.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="profile" color={color} size={iconSize} />,
-        }}
-      />
-    </HomeTopNavigator.Navigator>
-  );
-};
-
-const defaultScreenOptions = {
-  headerTitleAlign: 'center',
-
-  headerStyle: {
-    shadowColor: 'transparent',
-    borderBottomWidth: 0,
-    elevation: 0,
-  },
-};
-
 const LineScreenOptions = {
   headerTitleAlign: 'center',
-
   headerStyle: {
     shadowColor: 'transparent',
     borderBottomWidth: 0.5,
     elevation: 0.5,
   },
+  style: {
+    // height: 70,
+    shadowColor: 'transparent',
+    borderColor: Colors.bottomlinecolor,
+    borderTopWidth: 0.5,
+    elevation: 0.5,
+  },
 };
 
 const tabBarTopNaviOption = {
-  activeTintColor: colors.activityiconcolor,
-  inactiveTintColor: colors.inactivityiconcolor,
+  activeTintColor: Colors.activityiconcolor,
+  inactiveTintColor: Colors.inactivityiconcolor,
   pressOpacity: 1,
   pressColor: 'transparent',
   labelStyle: {fontSize: 11, textTransform: 'none'},
@@ -232,13 +213,22 @@ const tabBarTopNaviOption = {
     marginLeft: 5,
     marginRight: 5,
   },
-
   style: {
     // height: 70,
     shadowColor: 'transparent',
-    borderColor: colors.bottomlinecolor,
+    borderColor: Colors.bottomlinecolor,
     borderTopWidth: 0.5,
     elevation: 0.5,
+  },
+};
+
+const defaultScreenOptions = {
+  headerTitleAlign: 'center',
+
+  headerStyle: {
+    shadowColor: 'transparent',
+    borderBottomWidth: 0,
+    elevation: 0,
   },
 };
 

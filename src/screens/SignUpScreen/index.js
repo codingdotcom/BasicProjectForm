@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar, Dimensions} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import SafeAreaView from 'react-native-safe-area-view';
 
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
@@ -13,11 +13,11 @@ class SignUpScreen extends Component {
   }
   render() {
     return (
-      <View style={[GlobalStyle.bottomSafeArea]}>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.red}}>
         <View style={styles.container}>
           <Text> SignUpScreen </Text>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
+    height: '100%',
     backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',

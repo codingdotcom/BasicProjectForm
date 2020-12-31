@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   bottomSafeArea: {
     flex: 1,
-    backgroundColor: Colors.white,
-    marginBottom: getBottomSpace(),
+    backgroundColor: Colors.red,
+    // marginBottom: getBottomSpace(),
   },
 });
