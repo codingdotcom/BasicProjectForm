@@ -20,13 +20,14 @@ import SavedScreen, {screenOptions as savedOptions} from '../screens/SavedScreen
 import AlarmScreen, {screenOptions as alarmOptions} from '../screens/AlarmScreen';
 import SearchScreen, {screenOptions as searchOptions} from '../screens/SearchScreen';
 import ProfileScreen, {screenOptions as profileOptions} from '../screens/ProfileScreen';
+import SavedDetailScreen from '../screens/SavedDetail';
 
 import LogInScreen, {screenOptions as loginOptions} from '../screens/LogInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import FindIdScreen from '../screens/FindIdScreen';
 import FindPwdScreen from '../screens/FindPwdScreen';
 
-const widthWindow = Dimensions.get('screen').width;
+const widthWindow = Dimensions.get('window').width;
 const iconSize = 24;
 
 /************************************************************************/
@@ -43,6 +44,7 @@ export const AllStackNavigation = () => {
       <allStack.Screen name="FindId" component={FindIdScreen} options={{title: '아이디 찾기', headerShown: true}} />
       <allStack.Screen name="FindPwd" component={FindPwdScreen} options={{title: '비밀번호 찾기', headerShown: true}} />
       <allStack.Screen name="Home" component={MainHomeStackNavigation} options={{headerShown: false}} />
+      <allStack.Screen name="SavedDetail" component={SavedDetailScreen} options={{headerShown: false}} />
     </allStack.Navigator>
   );
 };
@@ -55,7 +57,7 @@ export const AllStackNavigation = () => {
 const MainHomeStack = createStackNavigator();
 export const MainHomeStackNavigation = () => {
   return (
-    <SafeAreaView forceInset={{top: 'never'}} style={{flex: 1, backgroundColor: Colors.red}}>
+    <SafeAreaView forceInset={{top: 'never'}} style={{flex: 1, backgroundColor: Colors.white}}>
       <MainHomeStack.Navigator screenOptions={LineScreenOptions}>
         <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
       </MainHomeStack.Navigator>

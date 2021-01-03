@@ -10,6 +10,8 @@ import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 
+import Saved from './src/screens/SavedScreen';
+
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
 

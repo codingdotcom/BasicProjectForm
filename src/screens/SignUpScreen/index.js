@@ -13,7 +13,7 @@ class SignUpScreen extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: Colors.red}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
         <View style={styles.container}>
           <Text> SignUpScreen </Text>
         </View>
