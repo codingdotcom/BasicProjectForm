@@ -73,19 +73,19 @@ class FloatingButton extends Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <TouchableWithoutFeedback onPress={this.onPress}>
-          <Animated.View style={[styles.button, styles.secondary, linkStyle]}>
+          <Animated.View style={[styles.button, styles.secondary, linkStyle, {opacity: opacity}]}>
             <AntDesign name="link" size={20} color="#f02a4b" />
           </Animated.View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={this.onPress}>
-          <Animated.View style={[styles.button, styles.secondary, contactStyle]}>
+          <Animated.View style={[styles.button, styles.secondary, contactStyle, {opacity: opacity}]}>
             <AntDesign name="contacts" size={20} color="#f02a4b" />
           </Animated.View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={this.onPress}>
-          <Animated.View style={[styles.button, styles.secondary, phoneStyle]}>
+          <Animated.View style={[styles.button, styles.secondary, phoneStyle, {opacity: opacity}]}>
             <AntDesign name="phone" size={20} color="#f02a4b" />
           </Animated.View>
         </TouchableWithoutFeedback>
