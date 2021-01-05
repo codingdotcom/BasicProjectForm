@@ -24,4 +24,5 @@ export default {
   maintext: '#283c63',
   bigtext: '#00303f',
   subtext: '#495464',
+  btnColor: '#f02a4b',
 };

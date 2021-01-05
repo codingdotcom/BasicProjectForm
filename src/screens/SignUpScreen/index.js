@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar, Dimensions} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
+// import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 

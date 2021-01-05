@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {StyleSheet, View, Text, Dimensions, TouchableOpacity, TextInput, Platform, StatusBar} from 'react-native';
 import {CheckBox} from 'react-native-elements';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import Colors from '../../contants/color';
 import SafeAreaPadding from '../../styles/SafeAreaPadding';

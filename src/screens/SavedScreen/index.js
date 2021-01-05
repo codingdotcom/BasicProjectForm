@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Button} from 'react-native';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Dimensions} from 'react-native';
+import React, {Component, createRef} from 'react';
+import {StyleSheet, View, Text, FlatList, TouchableWithoutFeedback, TouchableOpacity, Image, Dimensions, Button} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import Colors from '../../contants/color';
 import Sizes from '../../contants/size';
 
 import AddModal from './components/AddModal';
-import BottomModal from './components/BottomModal';
 import ListItem from './components/ListItem';
 import FloatingButton from '../../components/FloatingButton';
 
@@ -35,13 +35,20 @@ class SavedScreen extends Component {
       items: [],
       refreshing: false,
     };
+
+    this.addModalRef = createRef();
   }
+
   render() {
     return (
       <View style={styles.container}>
+        <View>
+          <AddModal ref={this.addModalRef} />
+        </View>
         <FlatList
           data={this.state.items}
           numColumns={1}
+          // keyboardShouldPersistTaps={'handle'}
           // extraData={this.state}
           // ListFooterComponent={this.listFooter}
           // refreshing={this.state.refreshing}
@@ -55,7 +62,9 @@ class SavedScreen extends Component {
           ItemSeparatorComponent={this.ItemSeparator}
           renderItem={this.renderItem}
         />
-        <FloatingButton style={{bottom: 80, right: 50}} />
+        <FloatingButton style={{bottom: 10, right: 35}} btnLink={() => this.props.navigation.push('SignUp')} />
+
+        {/* <Button title="Open Modal" onPress={() => this.addModalRef.current.setState({showModal: true})} /> */}
       </View>
     );
   }

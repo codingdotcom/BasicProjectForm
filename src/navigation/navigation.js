@@ -2,12 +2,14 @@ import React from 'react';
 import {View, Image, Dimensions, Platform, Text} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
+import {Provider as PaperProvider} from 'react-native-paper';
+
 import Colors from '../contants/color';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, getFocusedRouteNameFromRoute, useIsFocused} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -26,6 +28,8 @@ import LogInScreen, {screenOptions as loginOptions} from '../screens/LogInScreen
 import SignUpScreen from '../screens/SignUpScreen';
 import FindIdScreen from '../screens/FindIdScreen';
 import FindPwdScreen from '../screens/FindPwdScreen';
+
+import PaperModal from '../screens/HomeScreen/Components/PaperModal';
 
 const widthWindow = Dimensions.get('window').width;
 const iconSize = 24;
@@ -66,55 +70,68 @@ export const MainHomeStackNavigation = () => {
 };
 
 const MainHomeTopNavigator = createMaterialTopTabNavigator();
-export const MainHomeNavigation = () => {
+export const MainHomeNavigation = ({route}) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+  const isFocused = useIsFocused();
+
+  // console.log('=>', routeName);
+  // console.log('1=>', isFocused);
+  let isHome = false;
+  if (routeName === 'Home') {
+    isHome = true;
+  }
+
   return (
-    <MainHomeTopNavigator.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
-      <MainHomeTopNavigator.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-          tabBarLabel: 'Home',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="home" color={color} size={iconSize} />,
-        }}
-      />
-      <MainHomeTopNavigator.Screen
-        name="Saved"
-        component={SavedScreen}
-        options={{
-          title: 'Saved',
-          tabBarLabel: 'Saved',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="save" color={color} size={iconSize} />,
-        }}
-      />
-      <MainHomeTopNavigator.Screen
-        name="Search"
-        component={AlarmScreen}
-        options={{
-          title: 'Search',
-          tabBarLabel: 'Search',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="search1" color={color} size={iconSize} />,
-        }}
-      />
-      <MainHomeTopNavigator.Screen
-        name="Alarm"
-        component={SearchScreen}
-        options={{
-          title: 'Alarm',
-          tabBarLabel: 'Alarm',
-          tabBarIcon: ({focused, color, size}) => <Ionicons name="alarm-outline" color={color} size={iconSize} />,
-        }}
-      />
-      <MainHomeTopNavigator.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          title: 'Profile',
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({focused, color, size}) => <AntDesign name="profile" color={color} size={iconSize} />,
-        }}
-      />
-    </MainHomeTopNavigator.Navigator>
+    <>
+      <MainHomeTopNavigator.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
+        <MainHomeTopNavigator.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'Home',
+            tabBarLabel: 'Home',
+            tabBarIcon: ({focused, color, size}) => <AntDesign name="home" color={color} size={iconSize} />,
+          }}
+        />
+        <MainHomeTopNavigator.Screen
+          name="Saved"
+          component={SavedScreen}
+          options={{
+            title: 'Saved',
+            tabBarLabel: 'Saved',
+            tabBarIcon: ({focused, color, size}) => <AntDesign name="save" color={color} size={iconSize} />,
+          }}
+        />
+        <MainHomeTopNavigator.Screen
+          name="Search"
+          component={AlarmScreen}
+          options={{
+            title: 'Search',
+            tabBarLabel: 'Search',
+            tabBarIcon: ({focused, color, size}) => <AntDesign name="search1" color={color} size={iconSize} />,
+          }}
+        />
+        <MainHomeTopNavigator.Screen
+          name="Alarm"
+          component={SearchScreen}
+          options={{
+            title: 'Alarm',
+            tabBarLabel: 'Alarm',
+            tabBarIcon: ({focused, color, size}) => <Ionicons name="alarm-outline" color={color} size={iconSize} />,
+          }}
+        />
+        <MainHomeTopNavigator.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            title: 'Profile',
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({focused, color, size}) => <AntDesign name="profile" color={color} size={iconSize} />,
+          }}
+        />
+      </MainHomeTopNavigator.Navigator>
+      <PaperModal visible={isHome} />
+    </>
   );
 };
 

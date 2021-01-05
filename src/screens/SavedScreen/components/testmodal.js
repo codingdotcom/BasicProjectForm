@@ -4,7 +4,7 @@ import Colors from '../../../contants/color';
 
 import ClosableModal from 'rn-closable-modal';
 
-class AddModal extends Component {
+class TestModal extends Component {
   constructor(props) {
     super(props);
     this.state = {showModal: false};
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddModal;
+export default TestModal;

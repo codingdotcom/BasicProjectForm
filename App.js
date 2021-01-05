@@ -10,7 +10,9 @@ import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 
-import Saved from './src/screens/SavedScreen';
+import {Provider as PaperProvider} from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
@@ -20,17 +22,22 @@ enableScreens();
 const App = () => {
   return (
     <>
-      {/* <Provider store={store}> */}
-
       <SafeAreaProvider>
-        {/* <SafeAreaView style={{flex: 1, backgroundColor: Colors.primary}}> */}
-        <NavigationContainer>
-          <AllStackNavigation />
-        </NavigationContainer>
-        {/* </SafeAreaView> */}
+        <PaperProvider
+          settings={{
+            icon: (props) => <FontAwesome style={{textAlign: 'center'}} {...props} />,
+          }}>
+          <NavigationContainer>
+            <AllStackNavigation />
+          </NavigationContainer>
+        </PaperProvider>
       </SafeAreaProvider>
 
-      {/* </Provider> */}
+      {/* <SafeAreaProvider>
+        <SafeAreaView style={{flex: 1, backgroundColor: Colors.primary}}>
+          <TestModal />
+        </SafeAreaView>
+      </SafeAreaProvider> */}
     </>
   );
 };
