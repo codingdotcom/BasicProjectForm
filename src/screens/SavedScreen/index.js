@@ -9,6 +9,9 @@ import ListItem from './components/ListItem';
 import FloatingButton from '../../components/FloatingButton';
 
 const widthWindow = Dimensions.get('window').width;
+const HeightWindow = Dimensions.get('window').height;
+
+const ITEM_HEIGHT = 320;
 
 const listItem = [
   {id: 202101, imageUri: require('../../assets/image/thumbnail_uquiz.png'), title: '유퀴즈 온더 블럭 정주행', info: 'Live / 3분전'},
@@ -44,6 +47,7 @@ class SavedScreen extends Component {
           // onRefresh={() => this._handleRefesh()}
           // onEndReached={this._handleLoadMore}
           // onEndReachedThreshold={1}
+          getItemLayout={(data, index) => ({length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index})}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
@@ -51,6 +55,7 @@ class SavedScreen extends Component {
           ItemSeparatorComponent={this.ItemSeparator}
           renderItem={this.renderItem}
         />
+
         <FloatingButton style={{bottom: 10, right: 35}} btnLink={() => this.props.navigation.push('SignUp')} />
       </View>
     );

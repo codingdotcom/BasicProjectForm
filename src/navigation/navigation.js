@@ -103,7 +103,7 @@ export const MainHomeNavigation = ({route}) => {
   let actions = {};
 
   let homeIconArr = ['pencil', 'pencil'];
-  let hOmeColorArr = [Colors.tomato, Colors.primary];
+  let hOmeColorArr = [Colors.primary, Colors.primary];
   let HomeTempArr = [HomeOnPress1, HomeOnPress2];
 
   const HomeAacitonList = [];
@@ -112,7 +112,7 @@ export const MainHomeNavigation = ({route}) => {
   }
 
   let AlarmIconArr = ['barcode', 'barcode', 'barcode'];
-  let AlarmColorArr = [Colors.tomato, Colors.primary, Colors.primary];
+  let AlarmColorArr = [Colors.primary, Colors.primary, Colors.primary];
   let AlarmTempArr = [HomeOnPress1, HomeOnPress2, HomeOnPress3];
 
   const AlarmActionList = [];
@@ -145,7 +145,7 @@ export const MainHomeNavigation = ({route}) => {
 
   return (
     <>
-      <MainHomeTopNavigator.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
+      <MainHomeTopNavigator.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={false} tabBarPosition="bottom">
         <MainHomeTopNavigator.Screen
           name="Home"
           component={HomeScreen}
@@ -166,7 +166,7 @@ export const MainHomeNavigation = ({route}) => {
         />
         <MainHomeTopNavigator.Screen
           name="Search"
-          component={AlarmScreen}
+          component={SearchScreen}
           options={{
             title: 'Search',
             tabBarLabel: 'Search',
@@ -175,7 +175,7 @@ export const MainHomeNavigation = ({route}) => {
         />
         <MainHomeTopNavigator.Screen
           name="Alarm"
-          component={SearchScreen}
+          component={AlarmScreen}
           options={{
             title: 'Alarm',
             tabBarLabel: 'Alarm',
@@ -234,7 +234,7 @@ export const MainBottomTabNavi = () => {
       />
       <MiainBottomTabNavigator.Screen
         name="Search"
-        component={AlarmScreen}
+        component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
           tabBarBadge: 3,
@@ -243,7 +243,7 @@ export const MainBottomTabNavi = () => {
       />
       <MiainBottomTabNavigator.Screen
         name="Alarm"
-        component={SearchScreen}
+        component={AlarmScreen}
         options={{
           tabBarLabel: 'Alarm',
           tabBarIcon: ({focused, color}) => <Ionicons name="alarm-outline" color={color} size={iconSize} />,

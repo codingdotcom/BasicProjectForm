@@ -34,6 +34,7 @@ class ListItem extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: 320,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },

@@ -1,5 +1,5 @@
 import React, {Component, createRef} from 'react';
-import {StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Button, TouchableOpacity, Platform} from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from '@react-navigation/native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -65,7 +65,7 @@ export const navigationOptions = ({navigation, route}) => {
 
   let profileRightIcon = (
     <TouchableWithoutFeedback
-      style={{paddingRight: 8}}
+      style={{paddingRight: Platform.OS === 'ios' ? 10 : 12}}
       onPress={() => {
         alert('aaaa');
       }}>

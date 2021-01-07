@@ -15,6 +15,7 @@ export default {
   bottomlinecolor: '#D4D4D4',
   activityiconcolor: '#3b5998',
   inactivityiconcolor: '#A0A0A0',
+  lightgrey_1: '#ECECEC',
 
   /** 쉼표 컬러  가이드 */
   primary: '#df7861',

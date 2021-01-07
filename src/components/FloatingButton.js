@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Animated, TouchableWithoutFeedback, Dimensions, Modal} from 'react-native';
+import {StyleSheet, View, Text, Animated, TouchableWithoutFeedback, TouchableOpacity, Dimensions, Modal} from 'react-native';
 import Colors from '../contants/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -33,7 +33,6 @@ class FloatingButton extends Component {
   }
 
   render() {
-    // console.log('render');
     const phoneStyle = {
       transform: [
         {scale: this.animation},
