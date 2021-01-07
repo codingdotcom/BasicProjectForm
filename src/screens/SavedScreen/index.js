@@ -5,19 +5,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colors from '../../contants/color';
 import Sizes from '../../contants/size';
 
-import AddModal from './components/AddModal';
 import ListItem from './components/ListItem';
 import FloatingButton from '../../components/FloatingButton';
 
-const width = Dimensions.get('window').width;
+const widthWindow = Dimensions.get('window').width;
 
 const listItem = [
-  {
-    id: 202101,
-    imageUri: require('../../assets/image/thumbnail_uquiz.png'),
-    title: '유퀴즈 온더 블럭 정주행',
-    info: 'Live / 3분전',
-  },
+  {id: 202101, imageUri: require('../../assets/image/thumbnail_uquiz.png'), title: '유퀴즈 온더 블럭 정주행', info: 'Live / 3분전'},
   {id: 202102, imageUri: require('../../assets/image/thumbnail_criim.png'), title: '크라임 씬 정주행', info: 'Live / 1시간전'},
   {id: 202103, imageUri: require('../../assets/image/thumbnail_excl.png'), title: '실무 엑셀 제대로 배워보자.', info: 'Live / 21시 공개'},
   {id: 202104, imageUri: require('../../assets/image/thumbnail_joosic.png'), title: '주식천하 최초공개', info: 'Live / 10분전'},
@@ -35,16 +29,11 @@ class SavedScreen extends Component {
       items: [],
       refreshing: false,
     };
-
-    this.addModalRef = createRef();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <AddModal ref={this.addModalRef} />
-        </View>
         <FlatList
           data={this.state.items}
           numColumns={1}
@@ -63,8 +52,6 @@ class SavedScreen extends Component {
           renderItem={this.renderItem}
         />
         <FloatingButton style={{bottom: 10, right: 35}} btnLink={() => this.props.navigation.push('SignUp')} />
-
-        {/* <Button title="Open Modal" onPress={() => this.addModalRef.current.setState({showModal: true})} /> */}
       </View>
     );
   }

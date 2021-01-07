@@ -1,32 +1,42 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {getFocusedRouteNameFromRoute, useIsFocused} from '@react-navigation/native';
+import React, {Component, createRef} from 'react';
+import {StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
+import {getFocusedRouteNameFromRoute, useNavigation} from '@react-navigation/native';
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import DatePicker from '../../components/DatePicker';
+import PaperModal from '../../components/PaperModal';
 
 import Colors from '../../contants/color';
-import PaperModal from './Components/PaperModal';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 class HomeScreen extends Component {
+  init() {
+    const {route, navigation} = this.props;
+    navigation.setOptions({headerRigth: () => <Button />});
+  }
+
   constructor(props) {
     super(props);
+
+    this.pagerModalRef = createRef();
   }
+
+  componentDidMount() {
+    // this.init();
+  }
+
   render() {
-    const routeName = this.props.route.name;
-
-    console.log('route', routeName);
-
-    let isView = false;
-    if (routeName === 'Home') {
-      isView = true;
-    } else {
-      isView = false;
-    }
-    console.log('Name', isView);
     return (
       <View style={styles.container}>
         <View style={styles.contents}>
-          <Text> HomeScreen </Text>
+          <Button title="Open Modal" onPress={() => this.pagerModalRef.current.setState({visible: true})} />
+
+          <View>
+            <PaperModal ref={this.pagerModalRef} />
+          </View>
         </View>
-        {/* <PaperModal visiable={isView} /> */}
       </View>
     );
   }
@@ -41,38 +51,65 @@ const styles = StyleSheet.create({
   },
   contents: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
-let visiable = 0;
+export const navigationOptions = ({navigation, route}) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
 
-export const screenOptions = ({navigation, route}) => {
-  const routeName = getFocusedRouteNameFromRoute(route);
+  // console.log(routeName);
+  // console.log(navigation);
 
   let _title = 'Home';
+  let _headerShown = true;
+
+  let profileRightIcon = (
+    <TouchableWithoutFeedback
+      style={{paddingRight: 8}}
+      onPress={() => {
+        alert('aaaa');
+      }}>
+      <AntDesign name="setting" color={Colors.black} size={24} />
+    </TouchableWithoutFeedback>
+  );
+
+  let hearderLeftIcon = undefined;
+  let hearderRigthIcon = undefined;
+
   switch (routeName) {
     case 'Home':
-      visiable = 1;
       _title = 'Home';
+      _headerShown = true;
       break;
     case 'Saved':
-      visiable = 2;
       _title = 'Saved';
+      _headerShown = true;
       break;
     case 'Search':
       _title = 'Search';
+      _headerShown = false;
+
       break;
     case 'Alarm':
       _title = 'Alarm';
+      _headerShown = true;
+
       break;
     case 'Profile':
       _title = 'Profile';
+      _headerShown = true;
+      hearderRigthIcon = profileRightIcon;
       break;
   }
   return {
     title: _title,
+    // headerLeft: () => {
+    //   return hearderLeftIcon;
+    // },
+    headerRight: () => {
+      return hearderRigthIcon;
+    },
+    headerShown: _headerShown,
   };
 };
 

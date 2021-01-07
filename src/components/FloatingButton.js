@@ -3,8 +3,6 @@ import {StyleSheet, View, Text, Animated, TouchableWithoutFeedback, Dimensions, 
 import Colors from '../contants/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import ClosableModal from 'rn-closable-modal';
-
 const widthWindow = Dimensions.get('window').width;
 const heightWindow = Dimensions.get('window').height;
 

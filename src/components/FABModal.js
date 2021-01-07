@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 
 import {FAB, Portal} from 'react-native-paper';
-import Colors from '../../../contants/color';
+
+import Colors from '../contants/color';
 
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
-class PaperModal extends Component {
+//FAB 그룹 버튼
+export class FABGroup extends Component {
   state = {
     open: false,
   };
@@ -17,15 +19,13 @@ class PaperModal extends Component {
         <FAB.Group
           visible={this.props.visible}
           open={this.state.open}
-          icon={this.state.open ? 'close' : 'info'}
+          icon={this.state.open ? this.props.OpenAfterIcon : this.props.OpenBeforeIcon}
           style={{position: 'absolute'}}
-          actions={[
-            //icon={require('../assets/images/water-glass.png')}
-            {icon: 'pencil', color: Colors.btnColor, onPress: () => this.props._plus},
-            {icon: 'google', color: Colors.btnColor, onPress: () => console.log('Pressed google')},
-            {icon: 'search', color: Colors.btnColor, onPress: () => console.log('Pressed search')},
-            {icon: 'phone', color: Colors.btnColor, onPress: () => console.log('Pressed phone')},
-          ]}
+          actions={this.props.actions}
+          // {[
+          //   //icon={require('../assets/images/water-glass.png')}
+          //   {icon: this.props.actions.actionsIcon, color: this.props.actions.actionsColor, onPress: () => this.props.actions.actionsMethod('')},
+          // ]}
           onStateChange={({open}) => this.setState({open})}
           onPress={() => {
             this.setState({open: !this.state.open});
@@ -38,6 +38,28 @@ class PaperModal extends Component {
           theme={this.state.open ? {colors: {accent: 'transparent'}} : undefined}
           style={{paddingBottom: getBottomSpace() + 70, paddingRight: 0}}
           // theme={{colors: {accent: 'blue'}}}
+        />
+      </Portal>
+    );
+  }
+}
+
+//FAB 기본  - 버튼 하나
+export class FABdefault extends Component {
+  render() {
+    return (
+      <Portal>
+        <FAB
+          visible={this.props.visible}
+          open={this.state.open}
+          icon={this.props.icon}
+          style={{position: 'absolute'}}
+          onPress={() => {
+            console.log('Pressed');
+          }}
+          color={'white'}
+          fabStyle={{borderWidth: 0, borderColor: 'white', backgroundColor: Colors.black}}
+          style={{paddingBottom: getBottomSpace() + 70, paddingRight: 0}}
         />
       </Portal>
     );
@@ -73,5 +95,3 @@ const styles = StyleSheet.create({
     paddingBottom: height / 2.4,
   },
 });
-
-export default PaperModal;

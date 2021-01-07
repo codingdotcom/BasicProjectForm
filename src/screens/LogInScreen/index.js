@@ -82,7 +82,7 @@ class LogInScreen extends Component {
             style={{marginBottom: 20}}
             title="로그인"
             onPress={() => {
-              this.props.navigation.navigate('Home');
+              this.props.navigation.push('Home');
             }}
           />
           <View

@@ -1,3 +1,4 @@
+import {Provider as PaperProvider} from 'react-native-paper';
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, StatusBar} from 'react-native';
 import {enableScreens} from 'react-native-screens';
@@ -5,12 +6,11 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {AllStackNavigation} from './src/navigation/Navigation';
+import {AllStackNavigation, MainHomeStackNavigation} from './src/navigation/Navigation';
 import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 
-import {Provider as PaperProvider} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 

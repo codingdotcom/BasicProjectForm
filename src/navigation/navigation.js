@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Dimensions, Platform, Text} from 'react-native';
+import {View, Image, Dimensions, Platform, Text, TouchableWithoutFeedback, Button} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -17,11 +17,11 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import LoadingScreen from '../screens/LoadingScreen';
 import SplashScreen from '../screens/SplashScreen';
 
-import HomeScreen, {screenOptions as homeOptions} from '../screens/HomeScreen';
-import SavedScreen, {screenOptions as savedOptions} from '../screens/SavedScreen';
-import AlarmScreen, {screenOptions as alarmOptions} from '../screens/AlarmScreen';
-import SearchScreen, {screenOptions as searchOptions} from '../screens/SearchScreen';
-import ProfileScreen, {screenOptions as profileOptions} from '../screens/ProfileScreen';
+import HomeScreen, {navigationOptions as homeOptions} from '../screens/HomeScreen';
+import SavedScreen from '../screens/SavedScreen';
+import AlarmScreen from '../screens/AlarmScreen';
+import SearchScreen from '../screens/SearchScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import SavedDetailScreen from '../screens/SavedDetail';
 
 import LogInScreen, {screenOptions as loginOptions} from '../screens/LogInScreen';
@@ -29,7 +29,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import FindIdScreen from '../screens/FindIdScreen';
 import FindPwdScreen from '../screens/FindPwdScreen';
 
-import PaperModal from '../screens/HomeScreen/Components/PaperModal';
+import {FABGroup, FABdefault} from '../components/FABModal';
 
 const widthWindow = Dimensions.get('window').width;
 const iconSize = 24;
@@ -42,7 +42,7 @@ const iconSize = 24;
 const allStack = createStackNavigator();
 export const AllStackNavigation = () => {
   return (
-    <allStack.Navigator>
+    <allStack.Navigator screenOptions={{headerBackTitleVisible: false, headerTintColor: 'black'}}>
       <allStack.Screen name="Login" component={LogInScreen} options={{title: '로그인', headerShown: false}} />
       <allStack.Screen name="SignUp" component={SignUpScreen} options={{title: '회원가입', headerShown: true}} />
       <allStack.Screen name="FindId" component={FindIdScreen} options={{title: '아이디 찾기', headerShown: true}} />
@@ -60,25 +60,87 @@ export const AllStackNavigation = () => {
 /************************************************************************/
 const MainHomeStack = createStackNavigator();
 export const MainHomeStackNavigation = () => {
+  // console.log('1', navigation);
+  // console.log('2', route);
   return (
     <SafeAreaView forceInset={{top: 'never'}} style={{flex: 1, backgroundColor: Colors.white}}>
       <MainHomeStack.Navigator screenOptions={LineScreenOptions}>
-        <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
+        <MainHomeStack.Screen
+          name="Home"
+          component={MainHomeNavigation}
+          options={homeOptions} /*options={{headerRight: () => <Button title="setting" />}}*/
+        />
       </MainHomeStack.Navigator>
     </SafeAreaView>
   );
 };
 
 const MainHomeTopNavigator = createMaterialTopTabNavigator();
+
+//FAB 버튼 클릭 시 이동
+const HomeOnPress1 = () => {
+  console.log('home1');
+};
+
+const HomeOnPress2 = () => {
+  console.log('home2');
+};
+
+const HomeOnPress3 = () => {
+  console.log('home3');
+};
+
 export const MainHomeNavigation = ({route}) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
   const isFocused = useIsFocused();
 
   // console.log('=>', routeName);
-  // console.log('1=>', isFocused);
-  let isHome = false;
+  // console.log('1=>', props);
+
+  //FAB Icon Change
+  let OpenAfterIcon = '';
+  let OpenBeforeIcon = '';
+  let actions = {};
+
+  let homeIconArr = ['pencil', 'pencil'];
+  let hOmeColorArr = [Colors.tomato, Colors.primary];
+  let HomeTempArr = [HomeOnPress1, HomeOnPress2];
+
+  const HomeAacitonList = [];
+  for (let i = 0; i < homeIconArr.length; i++) {
+    HomeAacitonList.push({icon: homeIconArr[i], color: hOmeColorArr[i], onPress: HomeTempArr[i]});
+  }
+
+  let AlarmIconArr = ['barcode', 'barcode', 'barcode'];
+  let AlarmColorArr = [Colors.tomato, Colors.primary, Colors.primary];
+  let AlarmTempArr = [HomeOnPress1, HomeOnPress2, HomeOnPress3];
+
+  const AlarmActionList = [];
+  for (let i = 0; i < AlarmIconArr.length; i++) {
+    AlarmActionList.push({icon: AlarmIconArr[i], color: AlarmColorArr[i], onPress: AlarmTempArr[i]});
+  }
+
+  //FAB Visiable
+  let visiable = false;
+
   if (routeName === 'Home') {
-    isHome = true;
+    visiable = true;
+  } else if (routeName === 'Alarm') {
+    visiable = true;
+  }
+
+  switch (routeName) {
+    case 'Home':
+      OpenAfterIcon = 'info';
+      OpenBeforeIcon = 'home';
+      actions = HomeAacitonList;
+      break;
+
+    default:
+      OpenAfterIcon = 'inbox';
+      OpenBeforeIcon = 'headphones';
+      actions = AlarmActionList;
+      break;
   }
 
   return (
@@ -130,7 +192,7 @@ export const MainHomeNavigation = ({route}) => {
           }}
         />
       </MainHomeTopNavigator.Navigator>
-      <PaperModal visible={isHome} />
+      <FABGroup visible={(isFocused, visiable)} OpenBeforeIcon={OpenBeforeIcon} OpenAfterIcon={OpenAfterIcon} actions={actions} />
     </>
   );
 };
@@ -201,6 +263,8 @@ export const MainBottomTabNavi = () => {
 
 const LineScreenOptions = {
   headerTitleAlign: 'center',
+  headerBackTitleVisible: false,
+  headerTintColor: 'black',
   headerStyle: {
     shadowColor: 'transparent',
     borderBottomWidth: 0.5,
