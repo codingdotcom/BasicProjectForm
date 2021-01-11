@@ -11,8 +11,11 @@ import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import LoginScreen from './src/facebook_clone/screens/LoginScreen';
+import LoginDetailScreen from './src/facebook_clone/screens/LoginDetailScreen';
+import SignupScreen from './src/facebook_clone/screens/SignupScreen';
+
+import LoginRouter from './src/facebook_clone/navigation/LoginRouter';
 
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
@@ -23,6 +26,12 @@ const App = () => {
   return (
     <>
       <SafeAreaProvider>
+        <NavigationContainer>
+          <LoginRouter />
+          {/* <ModalizeBottomSheet /> */}
+        </NavigationContainer>
+      </SafeAreaProvider>
+      {/* <SafeAreaProvider>
         <PaperProvider
           settings={{
             icon: (props) => <FontAwesome style={{textAlign: 'center'}} {...props} />,
@@ -31,7 +40,7 @@ const App = () => {
             <AllStackNavigation />
           </NavigationContainer>
         </PaperProvider>
-      </SafeAreaProvider>
+      </SafeAreaProvider> */}
 
       {/* <SafeAreaProvider>
         <SafeAreaView style={{flex: 1, backgroundColor: Colors.primary}}>

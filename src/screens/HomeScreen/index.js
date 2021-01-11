@@ -1,5 +1,5 @@
 import React, {Component, createRef} from 'react';
-import {StyleSheet, View, Text, Button, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, View, Text, Button, TouchableOpacity, TouchableWithoutFeedback, Platform} from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from '@react-navigation/native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,7 +9,6 @@ import DatePicker from '../../components/DatePicker';
 import PaperModal from '../../components/PaperModal';
 
 import Colors from '../../contants/color';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 class HomeScreen extends Component {
   init() {

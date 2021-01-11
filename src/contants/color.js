@@ -1,6 +1,8 @@
 export default {
   main: '#ffffff',
-  kakao: '#feed49',
+  kakao: '#F8E00A',
+  facebook: '#3b5998',
+  naver: '#23C204',
   background: '#e5e5e5',
   signup: '#c9b951',
   basicText: '#444',
