@@ -15,7 +15,7 @@ export default {
   white: 'white',
   grey: 'grey',
   bottomlinecolor: '#D4D4D4',
-  activityiconcolor: '#3b5998',
+  activityiconcolor: '#165EED',
   inactivityiconcolor: '#A0A0A0',
   lightgrey_1: '#ECECEC',
 

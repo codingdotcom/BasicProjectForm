@@ -6,7 +6,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {AllStackNavigation, MainHomeStackNavigation} from './src/navigation/Navigation';
+// import {AllStackNavigation, MainHomeStackNavigation} from './src/navigation/Navigation';
 import Colors from './src/contants/color';
 import SafeAreaPadding from './src/styles/SafeAreaPadding';
 import GeneralStatusBarColor from './src/components/GeneralStatusBarColor';
@@ -16,6 +16,7 @@ import LoginDetailScreen from './src/facebook_clone/screens/LoginDetailScreen';
 import SignupScreen from './src/facebook_clone/screens/SignupScreen';
 
 import LoginRouter from './src/facebook_clone/navigation/LoginRouter';
+import {MainHomeStackNavigation} from './src/facebook_clone/navigation/BottomMenu';
 
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
@@ -27,7 +28,7 @@ const App = () => {
     <>
       <SafeAreaProvider>
         <NavigationContainer>
-          <LoginRouter />
+          <MainHomeStackNavigation />
           {/* <ModalizeBottomSheet /> */}
         </NavigationContainer>
       </SafeAreaProvider>
