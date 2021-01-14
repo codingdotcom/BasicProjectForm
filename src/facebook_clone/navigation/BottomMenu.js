@@ -24,6 +24,8 @@ import SearchScreen from '../screens/SearchScreen';
 const widthWindow = Dimensions.get('window').width;
 const iconSize = 24;
 
+// console.log('header', Header.HEIGHT);
+
 const MainHomeStack = createStackNavigator();
 export const MainHomeStackNavigation = () => {
   return (

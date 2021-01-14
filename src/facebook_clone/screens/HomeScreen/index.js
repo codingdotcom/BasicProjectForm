@@ -1,23 +1,32 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {ScrollView} from 'react-native';
+import styled from 'styled-components/native';
+
+import AppBar from './components/AppBar';
+import ToolBar from './components/ToolBar';
+import Users from './components/Users';
+import Story from './components/Story';
+import Feed from './components/Feed';
 
 class HomeScreen extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text> HomeScreen </Text>
-      </View>
+      <Container>
+        <ScrollView>
+          <AppBar />
+          <ToolBar />
+          <Users />
+          <Story />
+          <Feed />
+        </ScrollView>
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background: #ffffff;
+`;
 
 export default HomeScreen;
