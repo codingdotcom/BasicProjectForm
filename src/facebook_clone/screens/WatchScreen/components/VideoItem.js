@@ -113,6 +113,7 @@ const Header = styled.View`
   height: 50px;
   flex-direction: row;
   align-items: center;
+  background: #ffffff;
   justify-content: space-between;
   margin-top: 6px;
   padding: 0 11px;
@@ -131,6 +132,7 @@ const Button = styled.TouchableOpacity`
 const Row = styled.View`
   align-items: center;
   flex-direction: row;
+  background: #ffffff;
 `;
 
 const User = styled.Text`
@@ -146,6 +148,7 @@ const Time = styled.Text`
 
 const Post = styled.Text`
   font-size: 14px;
+  background: #ffffff;
   color: #242424;
   line-height: 16px;
   padding: 0 11px;
@@ -160,6 +163,7 @@ const Photo = styled.Image`
 
 const Footer = styled.View`
   padding: 0 11px;
+  background: #ffffff;
 `;
 
 const FooterCount = styled.View`
@@ -192,6 +196,7 @@ const FooterMenu = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 9px 30px;
+  background: #ffffff;
 `;
 
 const FooterButton = styled.TouchableOpacity`

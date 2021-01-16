@@ -1,6 +1,8 @@
 import React, {Component, createRef} from 'react';
 import styled from 'styled-components/native';
-import {StyleSheet, View, TouchableOpacity, FlatList, VirtualizedList, Dimensions, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Text, ScrollView} from 'react-native';
+
+import {ButtonGroup} from 'react-native-elements';
 
 import Animated, {
   event,
@@ -25,6 +27,7 @@ import Animated, {
 
 import Colors from '../../../contants/color';
 import VideoItem from './components/VideoItem';
+import ButtonGroupChoice from './components/ButtonGroupChoice';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -45,18 +48,59 @@ class WatchScreen extends Component {
     super(props);
 
     this.state = {
+      // selectedIndex: 0,
       items: [],
       refreshing: false,
     };
 
     this._scroll_y = new Value(0);
+    // this.updateIndex = this.updateIndex.bind(this);
 
     this.Search = createRef();
   }
 
+  // updateIndex(selectedIndex) {
+  //   this.setState({selectedIndex});
+  // }
+
   onFocus = () => {
     this.Search.current._onFocus();
   };
+
+  //Button 모음
+  btnMyRecommend = () => (
+    <View style={styles.row}>
+      <Entypo name="video" color={this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext} size={16} />
+      <Text style={{color: this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>
+        회원님을 위한 추천
+      </Text>
+    </View>
+  );
+  btnLive = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="video-account" color={this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext} size={22} />
+      <Text style={{color: this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>라이브</Text>
+    </View>
+  );
+  btnFollowing = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="folder-star-multiple" color={this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>팔로잉</Text>
+    </View>
+  );
+  btnFood = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="food-fork-drink" color={this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>푸드</Text>
+    </View>
+  );
+
+  btnGame = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="gamepad-up" color={this.state.selectedIndex === 4 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 4 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>게임</Text>
+    </View>
+  );
 
   render() {
     /***********************************************************************************************/
@@ -103,6 +147,19 @@ class WatchScreen extends Component {
       extrapolate: 'clamp',
     });
 
+    /***********************************************************************************************/
+    //
+    /***********************************************************************************************/
+    const buttons = [
+      {element: this.btnMyRecommend},
+      {element: this.btnLive},
+      {element: this.btnFollowing},
+      {element: this.btnFood},
+      {element: this.btnGame},
+    ];
+    const {selectedIndex} = this.state;
+    // console.log('index', selectedIndex);
+
     return (
       <View style={styles.container}>
         <SearchScreen ref={this.Search} />
@@ -128,7 +185,28 @@ class WatchScreen extends Component {
 
         <View style={[styles.categoryContainer]}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity activeOpacity={0.8} style={[styles.categoryButton, {marginLeft: 16}]}>
+            <ButtonGroupChoice />
+            {/* <ButtonGroup
+              horizontal
+              onPress={this.updateIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              selectedTextStyle={{}}
+              selectedButtonStyle={{
+                backgroundColor:
+                  (selectedIndex === 0 && '#0D6CE0') ||
+                  (selectedIndex === 1 && '#FB001B') ||
+                  (selectedIndex === 2 && '#1EE64C') ||
+                  (selectedIndex === 3 && '#32C914') ||
+                  (selectedIndex === 4 && '#0E75DB'),
+              }}
+              innerBorderStyle={{width: 0, padding: 0, margin: 0}}
+              buttonStyle={{paddingHorizontal: 13, borderRadius: 50, backgroundColor: '#E5E5E5'}}
+              buttonContainerStyle={{paddingHorizontal: 5}}
+              containerStyle={{paddingVertical: 5, borderWidth: 0}}
+              activeOpacity={1}
+            /> */}
+            {/* <TouchableOpacity activeOpacity={0.8} style={[styles.categoryButton, {marginLeft: 16}]}>
               <View style={styles.row}>
                 <Entypo name="video" color={Colors.white} size={16} />
                 <Text style={styles.categoryText}>회원님을 위한 추천</Text>
@@ -161,7 +239,7 @@ class WatchScreen extends Component {
                 <MateriaCommunityIcon name="gamepad-up" color={Colors.bigtext} size={18} />
                 <Text style={{...styles.categoryText, color: Colors.bigtext}}>게임</Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ScrollView>
         </View>
 
@@ -169,9 +247,11 @@ class WatchScreen extends Component {
           data={this.state.items}
           numColumns={1}
           scrollEventThrottle={16}
+          extraData={this.state}
+          // refreshing={this.state.refreshing}
           renderScrollComponent={(props) => (
             <Animated.ScrollView
-              style={{flex: 1, zIndex: 0, elevation: -1}}
+              style={{flex: 1}}
               showsVerticalScrollIndicator={false}
               bounces={false}
               scrollEventThrottle={1}
@@ -283,7 +363,7 @@ const styles = StyleSheet.create({
     width,
     backgroundColor: 'white',
     height: CATEGORY_HEIGHT,
-    paddingVertical: 8,
+    // paddingVertical: 8,
     // paddingHorizontal: 16,
     // paddingLeft: 10,
     // zIndex: -999,

@@ -1,6 +1,7 @@
 import React, {Component, createRef} from 'react';
 import styled from 'styled-components/native';
-import {StyleSheet, View, TouchableOpacity, FlatList, VirtualizedList, Dimensions, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Text, ScrollView} from 'react-native';
+import {ButtonGroup} from 'react-native-elements';
 
 import Colors from '../../../contants/color';
 import VideoItem from './components/VideoItem';
@@ -24,9 +25,12 @@ class GroupScreen extends Component {
     super(props);
 
     this.state = {
+      selectedIndex: 0,
       items: [],
       refreshing: false,
     };
+    this.updateIndex = this.updateIndex.bind(this);
+
     this.Search = createRef();
   }
 
@@ -34,7 +38,43 @@ class GroupScreen extends Component {
     this.Search.current._onFocus();
   };
 
+  updateIndex(selectedIndex) {
+    this.setState({selectedIndex});
+  }
+
+  //Button 모음
+  btnMyRecommend = () => (
+    <View style={styles.row}>
+      <FontAwesome name="plus-square" color={this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext} size={16} />
+      <Text style={{color: this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>
+        회원님을 위한 추천
+      </Text>
+    </View>
+  );
+  btnPlay = () => (
+    <View style={styles.row}>
+      <FontAwesome name="gamepad" color={this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext} size={16} />
+      <Text style={{color: this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>플레이</Text>
+    </View>
+  );
+  btnVideo = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="play-circle" color={this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>동영상</Text>
+    </View>
+  );
+  btnCommunity = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="account-group" color={this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>커뮤니티</Text>
+    </View>
+  );
   render() {
+    const buttons = [{element: this.btnMyRecommend}, {element: this.btnPlay}, {element: this.btnVideo}, {element: this.btnCommunity}];
+    const {selectedIndex} = this.state;
+
+    // console.log(selectedIndex);
+
     return (
       <View style={styles.container}>
         <SearchScreen ref={this.Search} />
@@ -58,39 +98,32 @@ class GroupScreen extends Component {
 
         <View style={[styles.categoryContainer]}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity activeOpacity={0.8} style={[styles.categoryButton, {marginLeft: 16}]}>
-              <View style={styles.row}>
-                <FontAwesome name="plus-square" color={Colors.white} size={16} />
-                <Text style={styles.categoryText}>회원님을 위한 추천</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity activeOpacity={0.8} style={{...styles.categoryButton, backgroundColor: '#E5E5E5'}}>
-              <View style={styles.row}>
-                <MateriaCommunityIcon name="gamepad-square" color={Colors.bigtext} size={22} />
-                <Text style={{...styles.categoryText, color: Colors.bigtext}}>플레이</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity activeOpacity={0.8} style={{...styles.categoryButton, backgroundColor: '#E5E5E5'}}>
-              <View style={styles.row}>
-                <MateriaCommunityIcon name="play-circle" color={Colors.bigtext} size={18} />
-                <Text style={{...styles.categoryText, color: Colors.bigtext}}>동영상</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity activeOpacity={0.8} style={{...styles.categoryButton, backgroundColor: '#E5E5E5'}}>
-              <View style={styles.row}>
-                <MateriaCommunityIcon name="account-group" color={Colors.bigtext} size={18} />
-                <Text style={{...styles.categoryText, color: Colors.bigtext}}>커뮤니티</Text>
-              </View>
-            </TouchableOpacity>
+            <ButtonGroup
+              horizontal
+              onPress={this.updateIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              selectedTextStyle={{}}
+              selectedButtonStyle={{
+                backgroundColor:
+                  (selectedIndex === 0 && '#0D6CE0') ||
+                  (selectedIndex === 1 && '#20D759') ||
+                  (selectedIndex === 2 && '#FD8909') ||
+                  (selectedIndex === 3 && '#BE00FF'),
+              }}
+              innerBorderStyle={{width: 0, padding: 0, margin: 0}}
+              buttonStyle={{paddingHorizontal: 13, borderRadius: 50, backgroundColor: '#E5E5E5'}}
+              buttonContainerStyle={{paddingHorizontal: 5}}
+              containerStyle={{paddingVertical: 5, borderWidth: 0}}
+              activeOpacity={1}
+            />
           </ScrollView>
         </View>
 
         <FlatList
           data={this.state.items}
           numColumns={1}
+          extraData={this.state}
           scrollEventThrottle={16}
           ListHeaderComponent={this.ListHeader}
           ItemSeparatorComponent={this.ItemSeparator}
@@ -172,7 +205,7 @@ const styles = StyleSheet.create({
     width,
     backgroundColor: 'white',
     height: CATEGORY_HEIGHT,
-    paddingVertical: 8,
+    // paddingVertical: 8,
     // paddingHorizontal: 16,
     // paddingLeft: 10,
     // zIndex: -999,
@@ -188,9 +221,9 @@ const styles = StyleSheet.create({
   categoryText: {
     marginLeft: 6,
     alignSelf: 'center',
-    color: Colors.white,
-    fontWeight: '700',
-    fontSize: 14,
+    color: Colors.bigtext,
+    // fontWeight: '700',
+    // fontSize: 14,
   },
   header: {
     // position: 'absolute',
