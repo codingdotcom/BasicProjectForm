@@ -13,7 +13,7 @@ import Colors from '../../contants/color';
 class HomeScreen extends Component {
   init() {
     const {route, navigation} = this.props;
-    navigation.setOptions({headerRigth: () => <Button />});
+    // navigation.setOptions({headerRigth: () => <Button />});
   }
 
   constructor(props) {

@@ -45,7 +45,7 @@ class LoginScreen extends Component {
       <SafeAreaView style={{flex: 1}}>
         <ModalizeBottomSheet ref={this.modal} btnFacebook={this.btnFacebook} btnNaver={this.btnNaver} btnSignup={this.btnSignup} />
 
-        <StatusBar hidden />
+        {/* <StatusBar hidden /> */}
         <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={{marginTop: Platform.OS === 'ios' ? 0 : 20}}>
           <View style={styles.container}>
             <FlatlistAnimation style={{flex: 0.3}} />

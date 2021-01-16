@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, StatusBar} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -11,6 +11,8 @@ import Micon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Colors from '../../contants/color';
+
+import Header from '../screens/HomeScreen/components/AppBar';
 
 import HomeScreen, {navigationOptions as homeOptions} from '../screens/HomeScreen';
 import WatchScreen from '../screens/WatchScreen';
@@ -29,9 +31,9 @@ const iconSize = 24;
 const MainHomeStack = createStackNavigator();
 export const MainHomeStackNavigation = () => {
   return (
-    <SafeAreaView forceInset={{top: 'never'}} style={{flex: 1, backgroundColor: Colors.white}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
       <MainHomeStack.Navigator headerMode="none" screenOptions={LineScreenOptions}>
-        <MainHomeStack.Screen name="Home" component={MainHomeNavigation} />
+        <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
       </MainHomeStack.Navigator>
     </SafeAreaView>
   );
@@ -43,36 +45,26 @@ export const MainHomeNavigation = ({route}) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
   const isFocused = useIsFocused();
 
-  //   console.log('=>', routeName);
+  // console.log('=>', routeName);
   // console.log('1=>', props);
-
-  //   switch (routeName) {
-  //     case 'Home':
-  //       OpenAfterIcon = 'info';
-  //       OpenBeforeIcon = 'home';
-  //       actions = HomeAacitonList;
-  //       break;
-
-  //     default:
-  //       OpenAfterIcon = 'inbox';
-  //       OpenBeforeIcon = 'headphones';
-  //       actions = AlarmActionList;
-  //       break;
-  //   }
 
   return (
     <>
-      <MainBottomMenu.Navigator tabBarOptions={tabBarTopNaviOption} swipeEnabled={true} tabBarPosition="bottom">
+      <MainBottomMenu.Navigator
+        tabBarOptions={tabBarTopNaviOption}
+        swipeEnabled={true}
+        tabBarPosition="bottom"
+        headerMode="float"
+        headerLayoutPreset="center">
         <MainBottomMenu.Screen
           name="Home"
           component={HomeScreen}
           options={{
-            title: 'Home',
+            title: 'facebook',
             tabBarLabel: 'Home',
             tabBarIcon: ({focused, color}) => <Micon name={focused ? 'home' : 'home-outline'} color={color} size={iconSize} />,
           }}
         />
-
         <MainBottomMenu.Screen
           name="Watch"
           component={WatchScreen}
@@ -98,7 +90,7 @@ export const MainHomeNavigation = ({route}) => {
             title: '그룹',
             tabBarLabel: 'Group',
             tabBarIcon: ({focused, color, size}) => (
-              <Micon name={focused ? 'account-group' : 'account-group-outline'} color={color} size={iconSize} />
+              <Micon name={focused ? 'gamepad-square' : 'gamepad-square-outline'} color={color} size={iconSize} />
             ),
           }}
         />
@@ -130,19 +122,33 @@ export const MainHomeNavigation = ({route}) => {
 
 const LineScreenOptions = {
   headerTitleAlign: 'center',
+
   headerBackTitleVisible: false,
   headerTintColor: 'black',
+  headerTitleAlign: 'left',
+
+  // headerLeftContainerStyle: {
+  //   marginLeft: 10,
+  // },
+  headerRightContainerStyle: {
+    marginRight: 20,
+  },
+
+  headerLeft: () => {
+    return null;
+  },
   headerStyle: {
+    height: 110,
     shadowColor: 'transparent',
-    borderBottomWidth: 0.5,
-    elevation: 0.5,
+    borderBottomWidth: 0,
+    elevation: 0,
   },
   style: {
-    // height: 70,
+    // height: 80,
     shadowColor: 'transparent',
     borderColor: Colors.bottomlinecolor,
-    borderTopWidth: 0.5,
-    elevation: 0.5,
+    borderTopWidth: 0,
+    elevation: 0,
   },
 };
 
@@ -151,7 +157,7 @@ const tabBarTopNaviOption = {
   inactiveTintColor: Colors.inactivityiconcolor,
   pressOpacity: 1,
   width: '100%',
-  backgroundColor: 'red',
+  // backgroundColor: 'red',
   pressColor: 'transparent',
   labelStyle: {fontSize: 11, textTransform: 'none'},
   showIcon: true,

@@ -2,6 +2,6 @@ module.exports = {
   bracketSpacing: false,
   jsxBracketSameLine: true,
   singleQuote: true,
-  printWidth: 150,
+  printWidth: 100,
   trailingComma: 'all',
 };

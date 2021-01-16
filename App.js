@@ -28,8 +28,7 @@ const App = () => {
     <>
       <SafeAreaProvider>
         <NavigationContainer>
-          <MainHomeStackNavigation />
-          {/* <ModalizeBottomSheet /> */}
+          <LoginRouter />
         </NavigationContainer>
       </SafeAreaProvider>
       {/* <SafeAreaProvider>
