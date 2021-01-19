@@ -12,6 +12,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import SearchScreen from '../SearchScreen';
+import MenuList from './components/MenuList';
+import Test from './components/exText';
 
 const NAVI_BAR_HEIGHT = 58;
 
@@ -47,8 +49,8 @@ class MenuScreen extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <ScrollView style={{flex: 1}}>
-          <View style={{alignItems: 'flex-start', justifyContent: 'center'}}>
+        <ScrollView>
+          <View style={{backgroundColor: 'white', alignItems: 'flex-start', justifyContent: 'center'}}>
             <TouchableOpacity activeOpacity={0.8} style={{paddingHorizontal: 16, paddingVertical: 8, width}}>
               <View style={styles.row}>
                 <View style={{marginRight: 14}}>
@@ -67,10 +69,10 @@ class MenuScreen extends Component {
             <View style={{flex: 0.5, paddingLeft: 16, paddingRight: 5, paddingVertical: 16, alignContent: 'center', justifyContent: 'center'}}>
               <TouchableHighlight
                 onPress={() => {
-                  console.log('touch');
+                  console.log('코로나');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
-                style={styles.card}>
+                underlayColor="rgba(0,0,0,0.1)"
+                style={{...styles.card, backgroundColor: Colors.white}}>
                 <View>
                   <Entypo name="shield" size={24} color="#E133FF" />
                   <Text style={styles.cardText}>코로나19 정보 센터</Text>
@@ -81,7 +83,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('save');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <Entypo name="location" size={24} color="#186DFF" />
@@ -93,7 +95,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('nearFriend');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <Entypo name="save" size={24} color="#FC6B6A" />
@@ -105,7 +107,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('group');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <FontAwesome name="group" size={22} color="#FD851A" />
@@ -117,7 +119,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('page');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <MateriaCommunityIcon name="page-layout-sidebar-right" size={24} color="#25FFF6" />
@@ -129,11 +131,11 @@ class MenuScreen extends Component {
             <View style={{flex: 0.5, paddingRight: 16, paddingLeft: 5, paddingVertical: 16, alignContent: 'center', justifyContent: 'center'}}>
               <TouchableHighlight
                 onPress={() => {
-                  console.log('touch');
+                  console.log('watch');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
-                <View>
+                <View style={{backgroundColor: 'transparent'}}>
                   <Entypo name="folder-video" size={24} color="#D30882" />
                   <Text style={styles.cardText}>Watch 동영상</Text>
                 </View>
@@ -143,7 +145,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('save');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <FontAwesome name="shopping-bag" size={24} color="#2322BC" />
@@ -155,7 +157,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('today');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <Entypo name="stopwatch" size={24} color="#FC6B6A" />
@@ -167,7 +169,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('event');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <FontAwesome name="calendar-check-o" size={22} color="#D45974" />
@@ -179,7 +181,7 @@ class MenuScreen extends Component {
                 onPress={() => {
                   console.log('friends');
                 }}
-                underlayColor="rgba(0,0,0,0.3)"
+                underlayColor="rgba(0,0,0,0.1)"
                 style={styles.card}>
                 <View>
                   <FontAwesome5 name="user-friends" size={20} color="#16918B" />
@@ -189,11 +191,8 @@ class MenuScreen extends Component {
             </View>
           </View>
 
-          <View style={{paddingHorizontal: 16, height: 50, backgroundColor: 'red', justifyContent: 'center'}}>
-            <TouchableOpacity activeOpacity={1}>
-              <Text>더 보기</Text>
-            </TouchableOpacity>
-          </View>
+          <MenuList />
+          {/* <Test /> */}
         </ScrollView>
       </View>
     );
@@ -205,11 +204,12 @@ class MenuScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.lightgrey_bg,
   },
 
   row: {
     flexDirection: 'row',
+    backgroundColor: 'white',
   },
 
   profileImage: {
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 0},
     shadowColor: Colors.black,
     shadowRadius: 5,
-    elevation: 2,
+    elevation: 0,
   },
 
   cardText: {

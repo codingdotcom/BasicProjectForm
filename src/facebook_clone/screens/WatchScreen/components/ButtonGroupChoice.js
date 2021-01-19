@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, FlatList, TouchableHighlight, Dimensions, Text, ScrollView} from 'react-native';
 
 import {ButtonGroup} from 'react-native-elements';
 
@@ -75,7 +75,7 @@ class ButtonGroupChoice extends Component {
       {element: this.btnGame},
     ];
     const {selectedIndex} = this.state;
-    console.log('index', selectedIndex);
+    // console.log('index', selectedIndex);
 
     return (
       <ButtonGroup
@@ -86,6 +86,8 @@ class ButtonGroupChoice extends Component {
         onPress={this.updateIndex}
         selectedIndex={selectedIndex}
         buttons={buttons}
+        Component={TouchableHighlight}
+        underlayColor="transparent"
         selectedButtonStyle={{
           backgroundColor:
             (selectedIndex === 0 && '#0D6CE0') ||
@@ -97,7 +99,7 @@ class ButtonGroupChoice extends Component {
         innerBorderStyle={{width: 0, padding: 0, margin: 0}}
         buttonStyle={{paddingHorizontal: 13, borderRadius: 50, backgroundColor: '#E5E5E5'}}
         buttonContainerStyle={{paddingHorizontal: 5}}
-        containerStyle={{paddingVertical: 5, borderWidth: 0}}
+        containerStyle={{paddingVertical: 2, borderWidth: 0}}
         activeOpacity={1}
       />
     );

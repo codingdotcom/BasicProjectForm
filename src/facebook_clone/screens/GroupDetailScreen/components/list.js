@@ -4,10 +4,6 @@ import {ScrollView, View} from 'react-native';
 
 import styled from 'styled-components/native';
 
-import LinearGradient from 'react-native-linear-gradient';
-
-import Avatar from './Avatar';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -15,25 +11,32 @@ import MateriaCommunityIcon from 'react-native-vector-icons/MaterialCommunityIco
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-class Feed extends Component {
+import LinearGradient from 'react-native-linear-gradient';
+
+import Avatar from '../../HomeScreen/components/Avatar';
+
+class VideoItem extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
+    const data = this.props.mData;
     return (
       <>
         <Container>
           <Header>
             <Row>
-              <Avatar source={require('../../../assets/user/user3.jpg')} />
+              <Avatar source={data.avataUri} />
               <View style={{paddingLeft: 10}}>
-                <User>Pitter Sim</User>
                 <Row>
-                  <Time>9분전</Time>
+                  <User>{data.name}</User>
+                </Row>
+                <Row style={{marginTop: 2}}>
+                  <Time>{data.uploadTime}</Time>
                   <Entypo name="dot-single" size={14} color="#747476" />
-                  <Entypo name="globe" size={14} color="#747476" />
+                  <Entypo name="globe" size={12} color="#747476" />
                 </Row>
               </View>
             </Row>
@@ -42,12 +45,10 @@ class Feed extends Component {
             </Button>
           </Header>
 
-          <Post numberOfLines={3} ellipsizeMode="tail">
-            Happy, lovely, new year everyone!! Angelwwiong is hosting an online international Texh Recruitong Day. Happy, lovely, new year everyone!!
-            Angelwwiong is hosting an online international Texh Recruitong Day. Happy, lovely, new year everyone!! Angelwwiong is hosting an online
-            international Texh Recruitong Day.
+          <Post numberOfLines={10} ellipsizeMode="tail">
+            {data.post}
           </Post>
-          <Photo source={require('../../../assets/story3.jpg')} />
+          <Photo resizeMode={'cover'} source={data.photo} />
 
           <Footer>
             <FooterCount>
@@ -55,11 +56,11 @@ class Feed extends Component {
                 <IconCount>
                   <AntDesign name="like1" size={12} color="#ffffff" />
                 </IconCount>
-                <TextCount>88개</TextCount>
+                <TextCount>{data.totalLike}</TextCount>
               </Row>
               <Row>
-                <TextCount style={{marginRight: 10}}>댓글 15개</TextCount>
-                <TextCount>공유 9회</TextCount>
+                <TextCount style={{marginRight: 10}}>{data.comment}</TextCount>
+                <TextCount style={{}}>{data.share}</TextCount>
               </Row>
             </FooterCount>
           </Footer>
@@ -67,21 +68,21 @@ class Feed extends Component {
           <View style={{marginHorizontal: 11, height: 0.5, backgroundColor: '#cfcfcf'}} />
 
           <FooterMenu>
-            <FooterButton activeOpacity={0.8}>
+            <FooterButton activeOpacity={0.8} onPress={this.props.btnLike}>
               <Icon>
                 <AntDesign name="like2" size={21} color="#424040" />
               </Icon>
               <Text>좋아요</Text>
             </FooterButton>
 
-            <FooterButton activeOpacity={0.8}>
+            <FooterButton activeOpacity={0.8} onPress={this.props.btnComment}>
               <Icon>
                 <MateriaCommunityIcon name="comment-outline" size={21} color="#424040" />
               </Icon>
               <Text>댓글달기</Text>
             </FooterButton>
 
-            <FooterButton activeOpacity={0.8}>
+            <FooterButton activeOpacity={0.8} onPress={this.props.btnShare}>
               <Icon>
                 <MateriaCommunityIcon name="share-outline" size={23} color="#424040" />
               </Icon>
@@ -89,16 +90,6 @@ class Feed extends Component {
             </FooterButton>
           </FooterMenu>
         </Container>
-        <BottomDivider />
-        <Background
-          useAngle={true}
-          angle={50}
-          angleCenter={{x: 0.6, y: 0.4}}
-          // locations={[0, 0.5, 1]}
-          // start={{x: 0, y: 0.25}}
-          // end={{x: 0.8, y: 1}}
-          colors={['#FF66F3', '#B128FF', '#5945FF']}
-        />
       </>
     );
   }
@@ -111,16 +102,21 @@ const Background = styled(LinearGradient)`
 
 const Container = styled.View`
   flex: 1;
-  background: white;
 `;
 
 const Header = styled.View`
   height: 50px;
   flex-direction: row;
   align-items: center;
+  background: #ffffff;
   justify-content: space-between;
   margin-top: 6px;
   padding: 0 11px;
+`;
+
+const Followbutton = styled.TouchableOpacity`
+  padding: 0px 0px;
+  padding-left: 4px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -131,24 +127,27 @@ const Button = styled.TouchableOpacity`
 const Row = styled.View`
   align-items: center;
   flex-direction: row;
+  background: #ffffff;
 `;
 
 const User = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: #222121;
 `;
 
 const Time = styled.Text`
-  font-size: 12px;
+  font-size: 11px;
   color: #747476;
 `;
 
 const Post = styled.Text`
   font-size: 14px;
+  background: #ffffff;
   color: #242424;
   line-height: 16px;
   padding: 0 11px;
+  padding-top: 2px;
 `;
 
 const Photo = styled.Image`
@@ -159,6 +158,7 @@ const Photo = styled.Image`
 
 const Footer = styled.View`
   padding: 0 11px;
+  background: #ffffff;
 `;
 
 const FooterCount = styled.View`
@@ -177,6 +177,11 @@ const IconCount = styled.View`
   margin-right: 6px;
 `;
 
+const Follow = styled.Text`
+  color: #1878f3;
+  font-size: 13px;
+`;
+
 const TextCount = styled.Text`
   font-size: 13px;
   color: #424040;
@@ -186,6 +191,7 @@ const FooterMenu = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 9px 30px;
+  background: #ffffff;
 `;
 
 const FooterButton = styled.TouchableOpacity`
@@ -208,4 +214,4 @@ const BottomDivider = styled.View`
   background: #f0f2f5;
 `;
 
-export default Feed;
+export default VideoItem;

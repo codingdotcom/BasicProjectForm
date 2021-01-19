@@ -1,5 +1,6 @@
 import React, {Component, createRef} from 'react';
-import {StyleSheet, Image, View, Text, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
+
+import {StyleSheet, TouchableHighlight, Image, View, Text, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 
 import Colors from '../../../../contants/color';
 
@@ -16,11 +17,13 @@ class GroupImageView extends Component {
     return (
       <>
         <View style={{flex: 1, marginRight: 12}}>
-          <TouchableOpacity
-            activeOpacity={0.8}
+          <TouchableHighlight
+            onPress={this.props.onPress}
+            // activeOpacity={0.8}
+            underlayColor="transparent"
             style={{backgroundColor: Colors.lightgrey_1, width: GROUP_LIST_HEIGHT * 0.8, height: '100%', borderRadius: 10, overflow: 'hidden'}}>
             <Image source={this.props.source} resizeMode="cover" style={{width: '100%', height: '100%'}} />
-          </TouchableOpacity>
+          </TouchableHighlight>
           <Text
             numberOfLines={2}
             ellipsizeMode="tail"

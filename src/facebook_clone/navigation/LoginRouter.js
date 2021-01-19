@@ -14,6 +14,8 @@ import SignupScreen from '../screens/SignupScreen';
 import FindIdScreen from '../screens/FindIdScreen';
 import FindPwdScreen from '../screens/FindPwdScreen';
 
+import GroupDetailScreen from '../../facebook_clone/screens/GroupDetailScreen';
+
 import {MainHomeStackNavigation} from '../navigation/BottomMenu';
 
 const widthWindow = Dimensions.get('window').width;

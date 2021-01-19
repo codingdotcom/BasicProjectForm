@@ -76,6 +76,7 @@ const Container = styled.View`
   height: 192px;
   flex-direction: row;
   align-items: center;
+  background: white;
 `;
 
 const CardContainer = styled.View`

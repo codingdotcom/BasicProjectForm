@@ -16,10 +16,12 @@ import Header from '../screens/HomeScreen/components/AppBar';
 
 import HomeScreen, {navigationOptions as homeOptions} from '../screens/HomeScreen';
 import WatchScreen from '../screens/WatchScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import GroupScreen from '../screens/GroupScreen';
+import GameScreen from '../screens/GameScreen';
 import AlarmScreen from '../screens/AlarmScreen';
 import MenuScreen from '../screens/MenuScreen';
+
+import GroupDetailScreen from '../screens/GroupDetailScreen';
 
 import SearchScreen from '../screens/SearchScreen';
 
@@ -34,6 +36,7 @@ export const MainHomeStackNavigation = () => {
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
       <MainHomeStack.Navigator headerMode="none" screenOptions={LineScreenOptions}>
         <MainHomeStack.Screen name="Home" component={MainHomeNavigation} options={homeOptions} />
+        <MainHomeStack.Screen name="GroupDetail" component={GroupDetailScreen} />
       </MainHomeStack.Navigator>
     </SafeAreaView>
   );
@@ -52,7 +55,7 @@ export const MainHomeNavigation = ({route}) => {
     <>
       <MainBottomMenu.Navigator
         tabBarOptions={tabBarTopNaviOption}
-        swipeEnabled={true}
+        swipeEnabled={false}
         tabBarPosition="bottom"
         headerMode="float"
         headerLayoutPreset="center">
@@ -75,20 +78,20 @@ export const MainHomeNavigation = ({route}) => {
           }}
         />
         <MainBottomMenu.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            title: '프로필',
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({focused, color, size}) => <FontAwesome name={focused ? 'user-circle' : 'user-circle-o'} color={color} size={iconSize} />,
-          }}
-        />
-        <MainBottomMenu.Screen
           name="Group"
           component={GroupScreen}
           options={{
             title: '그룹',
             tabBarLabel: 'Group',
+            tabBarIcon: ({focused, color, size}) => <FontAwesome name={focused ? 'user-circle' : 'user-circle-o'} color={color} size={iconSize} />,
+          }}
+        />
+        <MainBottomMenu.Screen
+          name="Game"
+          component={GameScreen}
+          options={{
+            title: '게임',
+            tabBarLabel: 'Game',
             tabBarIcon: ({focused, color, size}) => (
               <Micon name={focused ? 'gamepad-square' : 'gamepad-square-outline'} color={color} size={iconSize} />
             ),

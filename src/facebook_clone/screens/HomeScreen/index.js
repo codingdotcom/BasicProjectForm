@@ -1,6 +1,6 @@
 import React, {Component, createRef} from 'react';
 import styled from 'styled-components/native';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View, Platform, StatusBar} from 'react-native';
 
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
@@ -17,12 +17,15 @@ import Feed from './components/Feed';
 
 import SearchScreen from '../SearchScreen';
 
+const HEADER_HEIGHT = 58;
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    this._scroll_y = new Animated.Value(0);
+    // this._scroll_y = createRef(new Animated.Value(0));
 
+    this._scroll_y = new Animated.Value(0);
     this.Search = createRef();
   }
 
@@ -30,30 +33,36 @@ class HomeScreen extends Component {
     // console.log('search');
     this.Search.current._onFocus();
   };
-
   render() {
-    const _diff_clamp_scroll_y = Animated.diffClamp(this._scroll_y, 0, 58);
+    const _diff_clamp_scroll_y = Animated.diffClamp(this._scroll_y, 0, HEADER_HEIGHT);
 
     const _header_height = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, 58],
-      outputRange: [58, 0],
+      inputRange: [0, HEADER_HEIGHT],
+      outputRange: [HEADER_HEIGHT, 0],
+      extrapolate: 'clamp',
+    });
+
+    const headerHeight = this._scroll_y.interpolate({
+      inputRange: [0, HEADER_HEIGHT],
+      outputRange: [HEADER_HEIGHT, 0],
       extrapolate: 'clamp',
     });
 
     const _header_translate_y = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, 58],
-      outputRange: [0, -58],
+      inputRange: [0, HEADER_HEIGHT],
+      outputRange: [0, -HEADER_HEIGHT],
       extrapolate: 'clamp',
     });
 
     const _header_opacity = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, 25],
+      inputRange: [0, HEADER_HEIGHT * 0.5],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
 
     return (
       <Container>
+        {/* <StatusBar hidden /> */}
         <SearchScreen ref={this.Search} />
         <Animated.View
           style={[
@@ -76,14 +85,22 @@ class HomeScreen extends Component {
         </Animated.View>
         <Animated.ScrollView
           style={{flex: 1}}
+          contentContainerStyle={{paddingTop: HEADER_HEIGHT}}
           showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}
           bounces={false}
-          scrollEventThrottle={5}
-          onScroll={Animated.event([
+          bouncesZoom={false}
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {contentOffset: {y: this._scroll_y}},
+              },
+            ],
             {
-              nativeEvent: {contentOffset: {y: this._scroll_y}},
+              useNativeDriver: false,
             },
-          ])}>
+          )}>
           <ToolBar />
           <Users />
           <Story />
@@ -99,6 +116,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 9999,
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

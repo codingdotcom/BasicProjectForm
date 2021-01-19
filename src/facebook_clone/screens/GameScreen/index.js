@@ -1,14 +1,10 @@
 import React, {Component, createRef} from 'react';
 import styled from 'styled-components/native';
-import {StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Text, ScrollView} from 'react-native';
-
+import {StyleSheet, View, TouchableOpacity, TouchableHighlight, FlatList, Dimensions, Text, ScrollView} from 'react-native';
 import {ButtonGroup} from 'react-native-elements';
-
-import Animated, {Value} from 'react-native-reanimated';
 
 import Colors from '../../../contants/color';
 import VideoItem from './components/VideoItem';
-import ButtonGroupChoice from './components/ButtonGroupChoice';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,17 +20,16 @@ const CATEGORY_HEIGHT = 50;
 
 const width = Dimensions.get('screen').width;
 
-class WatchScreen extends Component {
+class GroupScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // selectedIndex: 0,
+      selectedIndex: 0,
       items: [],
       refreshing: false,
     };
-
-    this._scroll_y = new Value(0);
+    this.updateIndex = this.updateIndex.bind(this);
 
     this.Search = createRef();
   }
@@ -43,67 +38,54 @@ class WatchScreen extends Component {
     this.Search.current._onFocus();
   };
 
+  updateIndex(selectedIndex) {
+    this.setState({selectedIndex});
+  }
+
+  //Button 모음
+  btnMyRecommend = () => (
+    <View style={styles.row}>
+      <FontAwesome name="plus-square" color={this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext} size={16} />
+      <Text style={{color: this.state.selectedIndex === 0 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>
+        회원님을 위한 추천
+      </Text>
+    </View>
+  );
+  btnPlay = () => (
+    <View style={styles.row}>
+      <FontAwesome name="gamepad" color={this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext} size={16} />
+      <Text style={{color: this.state.selectedIndex === 1 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>플레이</Text>
+    </View>
+  );
+  btnVideo = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="play-circle" color={this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 2 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>동영상</Text>
+    </View>
+  );
+  btnCommunity = () => (
+    <View style={styles.row}>
+      <MateriaCommunityIcon name="account-group" color={this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext} size={18} />
+      <Text style={{color: this.state.selectedIndex === 3 ? Colors.white : Colors.bigtext, marginLeft: 6, alignSelf: 'center'}}>커뮤니티</Text>
+    </View>
+  );
   render() {
-    /***********************************************************************************************/
-    //
-    /***********************************************************************************************/
+    const buttons = [{element: this.btnMyRecommend}, {element: this.btnPlay}, {element: this.btnVideo}, {element: this.btnCommunity}];
+    const {selectedIndex} = this.state;
 
-    const _diff_clamp_scroll_y = Animated.diffClamp(this._scroll_y, 0, NAVI_BAR_HEIGHT);
-    const _category_clamp_scroll_y = Animated.diffClamp(this._scroll_y, 0, NAVI_BAR_HEIGHT + CATEGORY_HEIGHT);
-
-    const _header_height = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, NAVI_BAR_HEIGHT],
-      outputRange: [NAVI_BAR_HEIGHT, 0],
-      extrapolate: 'clamp',
-    });
-
-    const _header_translate_y = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, NAVI_BAR_HEIGHT],
-      outputRange: [0, -NAVI_BAR_HEIGHT],
-      extrapolate: 'clamp',
-    });
-
-    const _header_opacity = Animated.interpolate(_diff_clamp_scroll_y, {
-      inputRange: [0, NAVI_BAR_HEIGHT * 0.7],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
-
-    /***********************************************************************************************/
-    //
-    /***********************************************************************************************/
-
-    const _category_header_height = Animated.interpolate(_category_clamp_scroll_y, {
-      inputRange: [0, CATEGORY_HEIGHT + NAVI_BAR_HEIGHT],
-      outputRange: [CATEGORY_HEIGHT + NAVI_BAR_HEIGHT, 0],
-      extrapolate: 'clamp',
-    });
-
-    const _category_header_translate_y = Animated.interpolate(_category_clamp_scroll_y, {
-      inputRange: [0, CATEGORY_HEIGHT],
-      outputRange: [0, -CATEGORY_HEIGHT],
-      extrapolate: 'clamp',
-    });
-
-    const _category_header_opacity = Animated.interpolate(_category_clamp_scroll_y, {
-      inputRange: [0, (NAVI_BAR_HEIGHT + CATEGORY_HEIGHT) * 0.5],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
+    // console.log(selectedIndex);
 
     return (
       <View style={styles.container}>
         <SearchScreen ref={this.Search} />
-        <Animated.View
+        <View
           style={[
             styles.header,
             {
-              height: _header_height,
-              transform: [{translateY: _header_translate_y}],
-              opacity: _header_opacity,
+              height: NAVI_BAR_HEIGHT,
             },
           ]}>
-          <Text style={[styles.title]}> Watch </Text>
+          <Text style={[styles.title]}> 게임 </Text>
           <View style={[styles.row]}>
             <Button activeOpacity={0.7}>
               <Entypo name="user" size={24} />
@@ -112,53 +94,39 @@ class WatchScreen extends Component {
               <Ionicons name="ios-search" size={24} />
             </Button>
           </View>
-        </Animated.View>
+        </View>
 
-        <Animated.View
-          style={[
-            styles.categoryContainer,
-            {
-              paddingTop: NAVI_BAR_HEIGHT,
-              // height: _category_header_height,
-              transform: [{translateY: _category_header_translate_y}],
-              opacity: _category_header_opacity,
-            },
-          ]}>
+        <View style={[styles.categoryContainer]}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <ButtonGroupChoice />
+            <ButtonGroup
+              horizontal
+              onPress={this.updateIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              Component={TouchableHighlight}
+              underlayColor="transparent"
+              selectedTextStyle={{}}
+              selectedButtonStyle={{
+                backgroundColor:
+                  (selectedIndex === 0 && '#0D6CE0') ||
+                  (selectedIndex === 1 && '#20D759') ||
+                  (selectedIndex === 2 && '#FD8909') ||
+                  (selectedIndex === 3 && '#BE00FF'),
+              }}
+              innerBorderStyle={{width: 0, padding: 0, margin: 0}}
+              buttonStyle={{paddingHorizontal: 13, borderRadius: 50, backgroundColor: '#E5E5E5'}}
+              buttonContainerStyle={{paddingHorizontal: 5}}
+              containerStyle={{paddingVertical: 2, borderWidth: 0}}
+              activeOpacity={1}
+            />
           </ScrollView>
-        </Animated.View>
+        </View>
 
         <FlatList
           data={this.state.items}
           numColumns={1}
-          // contentContainerStyle={{paddingTop: NAVI_BAR_HEIGHT + CATEGORY_HEIGHT}}
-          scrollEventThrottle={16}
           extraData={this.state}
-          // refreshing={this.state.refreshing}
-          renderScrollComponent={(props) => (
-            <Animated.ScrollView
-              style={{flex: 1}}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{paddingTop: NAVI_BAR_HEIGHT + CATEGORY_HEIGHT}}
-              bounces={false}
-              bouncesZoom={false}
-              alwaysBounceVertical={false}
-              scrollEventThrottle={1}
-              onScroll={Animated.event(
-                [
-                  {
-                    nativeEvent: {
-                      contentOffset: {
-                        y: this._scroll_y,
-                      },
-                    },
-                  },
-                ],
-                {useNativeDriver: true},
-              )}
-            />
-          )}
+          scrollEventThrottle={16}
           ListHeaderComponent={this.ListHeader}
           ItemSeparatorComponent={this.ItemSeparator}
           showsVerticalScrollIndicator={false}
@@ -237,9 +205,12 @@ const styles = StyleSheet.create({
   },
   categoryContainer: {
     width,
-    position: 'absolute',
     backgroundColor: 'white',
-    zIndex: 99,
+    height: CATEGORY_HEIGHT,
+    // paddingVertical: 8,
+    // paddingHorizontal: 16,
+    // paddingLeft: 10,
+    // zIndex: -999,
   },
   categoryButton: {
     alignItems: 'center',
@@ -252,21 +223,21 @@ const styles = StyleSheet.create({
   categoryText: {
     marginLeft: 6,
     alignSelf: 'center',
-    color: Colors.white,
-    fontWeight: '700',
-    fontSize: 14,
+    color: Colors.bigtext,
+    // fontWeight: '700',
+    // fontSize: 14,
   },
   header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 999,
+    // position: 'absolute',
+    // top: 0,
+    // left: 0,
+    // right: 0,
     backgroundColor: Colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
+    // zIndex: 999,
   },
 
   scroll_view: {
@@ -325,4 +296,4 @@ const listItem = [
   },
 ];
 
-export default WatchScreen;
+export default GroupScreen;

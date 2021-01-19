@@ -1,7 +1,7 @@
 export default {
   main: '#ffffff',
   kakao: '#F8E00A',
-  facebook: '#3b5998',
+  facebook: '#165EED',
   naver: '#23C204',
   background: '#e5e5e5',
   signup: '#c9b951',
@@ -18,6 +18,7 @@ export default {
   activityiconcolor: '#165EED',
   inactivityiconcolor: '#A0A0A0',
   lightgrey_1: '#ECECEC',
+  lightgrey_bg: '#F2F5FA',
 
   /** 쉼표 컬러  가이드 */
   primary: '#df7861',

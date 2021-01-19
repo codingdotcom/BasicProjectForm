@@ -21,14 +21,14 @@ import {MainHomeStackNavigation} from './src/facebook_clone/navigation/BottomMen
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
 
-enableScreens();
+// enableScreens();
 
 const App = () => {
   return (
     <>
       <SafeAreaProvider>
         <NavigationContainer>
-          <LoginRouter />
+          <MainHomeStackNavigation />
         </NavigationContainer>
       </SafeAreaProvider>
       {/* <SafeAreaProvider>

@@ -47,6 +47,7 @@ class ToolBar extends Component {
 const Container = styled.View`
   width: 100%;
   height: 92px;
+  background: white;
 `;
 
 const Row = styled.View`

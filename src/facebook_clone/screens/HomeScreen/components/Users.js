@@ -48,6 +48,7 @@ const Container = styled.View`
   height: 58px;
   flex-direction: row;
   align-items: center;
+  background: white;
 `;
 
 const MovieTokBox = styled.TouchableOpacity`
